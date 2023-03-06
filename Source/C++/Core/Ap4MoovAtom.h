@@ -40,7 +40,6 @@
 +---------------------------------------------------------------------*/
 class AP4_AtomFactory;
 class AP4_TrakAtom;
-class AP4_PsshAtom;
 
 /*----------------------------------------------------------------------
 |   AP4_MoovAtom
@@ -62,9 +61,6 @@ public:
     AP4_List<AP4_TrakAtom>& GetTrakAtoms() {
         return m_TrakAtoms;
     }
-    AP4_List<AP4_PsshAtom>& GetPsshAtoms() {
-      return m_PsshAtoms;
-    }
     AP4_UI32 GetTimeScale() {
         return m_TimeScale;
     }
@@ -81,7 +77,6 @@ private:
                  AP4_AtomFactory& atom_factory);
 
     // members
-    AP4_List<AP4_PsshAtom> m_PsshAtoms;
     AP4_List<AP4_TrakAtom> m_TrakAtoms;
     AP4_UI32               m_TimeScale;
 };

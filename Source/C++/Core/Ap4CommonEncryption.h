@@ -694,18 +694,9 @@ public:
     // methods
     AP4_CencSingleSampleDecrypter(AP4_StreamCipher* cipher) :
         m_Cipher(cipher),
-        m_FullBlocksOnly(false),
-        m_ParentIsOwner(true) {}
+        m_FullBlocksOnly(false) {}
     virtual ~AP4_CencSingleSampleDecrypter();
-    virtual AP4_Result SetFragmentInfo(AP4_UI32 poolid, const AP4_UI08* keyid, const AP4_UI08 nalu_length_size,
-      AP4_DataBuffer &annexb_sps_pps, AP4_UI32 flags) {
-      return AP4_ERROR_NOT_SUPPORTED;
-    };
-    virtual AP4_UI32 AddPool() { return 0; };
-    virtual void RemovePool(AP4_UI32 poolid) {};
-    virtual const char* GetSessionId() { return nullptr; };
-    virtual AP4_Result DecryptSampleData(AP4_UI32 poolid, 
-                                         AP4_DataBuffer& data_in,
+    virtual AP4_Result DecryptSampleData(AP4_DataBuffer& data_in,
                                          AP4_DataBuffer& data_out,
                                          
                                          // always 16 bytes
@@ -718,9 +709,7 @@ public:
                                          const AP4_UI16* bytes_of_cleartext_data,
                                          
                                          // array of <subsample_count> integers. NULL if subsample_count is 0
-                                         const AP4_UI32* bytes_of_encrypted_data);
-    bool GetParentIsOwner()const { return m_ParentIsOwner; };
-    void SetParentIsOwner(bool parent_is_owner) { m_ParentIsOwner = parent_is_owner; };
+                                         const AP4_UI32* bytes_of_encrypted_data);  
     
 private:
     // constructor
@@ -729,14 +718,12 @@ private:
                                   bool              reset_iv_at_each_subsample) :
         m_Cipher(cipher),
         m_FullBlocksOnly(full_blocks_only),
-        m_ResetIvAtEachSubsample(reset_iv_at_each_subsample),
-        m_ParentIsOwner(true) {}
+        m_ResetIvAtEachSubsample(reset_iv_at_each_subsample) {}
 
     // members
     AP4_StreamCipher* m_Cipher;
     bool              m_FullBlocksOnly;
     bool              m_ResetIvAtEachSubsample;
-    bool              m_ParentIsOwner;
 };
 
 /*----------------------------------------------------------------------
@@ -785,8 +772,7 @@ public:
         m_SampleCursor(0) {}
     virtual ~AP4_CencSampleDecrypter();
     virtual AP4_Result SetSampleIndex(AP4_Ordinal sample_index);
-    virtual AP4_Result DecryptSampleData(AP4_UI32 poolid, 
-                                         AP4_DataBuffer& data_in,
+    virtual AP4_Result DecryptSampleData(AP4_DataBuffer& data_in,
                                          AP4_DataBuffer& data_out,
                                          const AP4_UI08* iv);
     
