@@ -410,7 +410,7 @@ public:
     virtual AP4_Result WriteFields(AP4_ByteStream& stream);
     virtual AP4_Atom*  Clone();
 
-private:
+protected:
     // members
     AP4_ByteStream* m_SourceStream;
     AP4_Position    m_SourcePosition;
