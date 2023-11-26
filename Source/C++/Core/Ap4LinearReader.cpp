@@ -376,7 +376,10 @@ AP4_LinearReader::AdvanceFragment()
         m_FragmentStream->Tell(last_position);
         result = atom_factory.CreateAtomFromStream(*m_FragmentStream, atom);
         if (AP4_SUCCEEDED(result)) {
-            if (atom->GetType() == AP4_ATOM_TYPE_MOOF) {
+            if AP4_SUCCEEDED(ProcessAtom(atom)) {
+                delete atom;
+            }
+            else if (atom->GetType() == AP4_ATOM_TYPE_MOOF) {
                 AP4_ContainerAtom* moof = AP4_DYNAMIC_CAST(AP4_ContainerAtom, atom);
                 if (moof) {
                     // remember where the moof started

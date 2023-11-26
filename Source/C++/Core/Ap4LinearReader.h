@@ -163,6 +163,7 @@ protected:
                                    AP4_Position       moof_offset, 
                                    AP4_Position       mdat_payload_offset,
                                    AP4_UI64           mdat_payload_size);
+    virtual AP4_Result ProcessAtom(AP4_Atom* atom) { return AP4_ERROR_INVALID_STATE; }
     
     // methods
     Tracker*   FindTracker(AP4_UI32 track_id);
